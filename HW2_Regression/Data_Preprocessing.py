@@ -61,36 +61,14 @@ data = data.join(tmp)
 data = data.dropna()
 
 # Transfer categorical variable
-# Transfer 'NEIGHBORHOOD' variable
 le = preprocessing.LabelEncoder()
-le.fit(data['NEIGHBORHOOD'])
-tmp = pd.Series(le.transform(data['NEIGHBORHOOD']), name = 'NEIGHBORHOOD')
-data = data.drop('NEIGHBORHOOD', axis = 1)
-data = data.join(tmp)
-
-# Transfer 'BUILDING CLASS CATEGORY' variable
-le.fit(data['BUILDING CLASS CATEGORY'])
-tmp = pd.Series(le.transform(data['BUILDING CLASS CATEGORY']), name = 'BUILDING CLASS CATEGORY')
-data = data.drop('BUILDING CLASS CATEGORY', axis = 1)
-data = data.join(tmp)
-
-# Transfer 'BUILDING CLASS AT PRESENT' variable
-le.fit(data['BUILDING CLASS AT PRESENT'])
-tmp = pd.Series(le.transform(data['BUILDING CLASS AT PRESENT']), name = 'BUILDING CLASS AT PRESENT')
-data = data.drop('BUILDING CLASS AT PRESENT', axis = 1)
-data = data.join(tmp)
-
-# Transfer 'BUILDING CLASS AT TIME OF SALE' variable
-le.fit(data['BUILDING CLASS AT TIME OF SALE'])
-tmp = pd.Series(le.transform(data['BUILDING CLASS AT TIME OF SALE']), name = 'BUILDING CLASS AT TIME OF SALE')
-data = data.drop('BUILDING CLASS AT TIME OF SALE', axis = 1)
-data = data.join(tmp)
-
-# Transfer 'TAX CLASS AT PRESENT' variable
-le.fit(data['TAX CLASS AT PRESENT'])
-tmp = pd.Series(le.transform(data['TAX CLASS AT PRESENT']), name = 'TAX CLASS AT PRESENT')
-data = data.drop('TAX CLASS AT PRESENT', axis = 1)
-data = data.join(tmp)
+col = ['NEIGHBORHOOD', 'BUILDING CLASS CATEGORY', 'BUILDING CLASS AT PRESENT', 'BUILDING CLASS AT TIME OF SALE', 'TAX CLASS AT PRESENT']
+for i in range(len(col)):
+    idx = col[i]
+    le.fit(data[idx])
+    tmp = pd.Series(le.transform(data[idx]), name = idx)
+    data = data.drop(idx, axis = 1)
+    data = data.join(tmp)
 
 # Output Data
 data.to_csv('./nyc-rolling-sales-processed.csv')
