@@ -60,3 +60,9 @@ target/
 Final_Project/data/
 
 HW6_Final_Project/data/
+
+*.dat
+
+HW4_PySpark_Decision_Tree/metastore_db/
+
+HW6_Final_Project/metastore_db/
